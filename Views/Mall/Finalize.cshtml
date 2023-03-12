@@ -1,0 +1,33 @@
+﻿@model OrderModel
+@{
+    ViewData["Title"] = "Finalize";
+}
+
+<h1>Finalize</h1>
+
+<h1>Welocome Sir: @Model.Customer.CustomerName </h1>
+<h3>Customer : @Model.Customer.CustomerName</h3>
+<h3>Customer Phone : @Model.Customer.CustomerPhoneNumber</h3>
+<h3>order list</h3>
+
+<table class="table table-responsive">
+    <tr>
+        <td>Product Name</td>
+        <td>Quantity</td>
+        <td>Price</td>
+    </tr>
+    @foreach (var item in Model.OrderItems)
+    {
+        <tr>
+            <td>@item.ProductItem.Name</td>
+            <td>@item.Quantity</td>
+            <td>@item.Price</td>
+        </tr>
+    }
+    <tr>
+        <td>Total</td>
+        <td></td>
+        <td>@Model.OrderItems.Sum(a => a.Price)</td>
+        <!--pay??? -->
+    </tr>
+</table>

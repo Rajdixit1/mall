@@ -1,0 +1,57 @@
+﻿@model IList<ProductItemModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3><b>Product item list</b></h3>
+            <table class="table table-responsive">
+                <tr>
+                    <td>Product Name</td>
+                    <td>Price</td>
+                    <td></td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                        <td><a asp-controller="Mall" asp-action="AddToCart" asp-route-productItemId="@item.Id">Click here to add to cart</a></td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+        <div class="col-lg-6">
+            <h3>Cart list</h3>
+            <table class="table table-responsive">
+                <tr>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in (List<CartModel>)(ViewBag.CartList))
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@(item.Quantity * item.Product.Price)</td>
+                        <td>
+                            <a href="/Mall/DecreaseItem?itemId=@item.ProductId">-</a>
+                            <span>@item.Quantity</span>
+                            <a href="/Mall/IncreaseItem?itemId=@item.ProductId">+</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <a href="/Mall/CheckCustomerNumber">Finalize order</a>
+    </div>
+</div>
